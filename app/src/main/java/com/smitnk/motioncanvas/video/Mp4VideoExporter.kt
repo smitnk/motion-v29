@@ -98,6 +98,7 @@ object Mp4VideoExporter {
             }
             if (result == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
                 val newTrack = muxer.addTrack(codec.outputFormat)
+                activeTrack = newTrack
                 onFormat(newTrack)
                 continue
             }
