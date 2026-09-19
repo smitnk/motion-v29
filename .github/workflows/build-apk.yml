@@ -15,10 +15,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Restore complete timeline source before build
-        run: |
-          git show fe6f6429777dc7b4b5d5e6ddd63632a9deb18979:app/src/main/java/com/smitnk/motioncanvas/timeline/TimelineComponents.kt > app/src/main/java/com/smitnk/motioncanvas/timeline/TimelineComponents.kt
-          sed -i 's/clickableimport androidx.compose.foundation.gestures.detectDragGestures/clickable\nimport androidx.compose.foundation.gestures.detectDragGestures/' app/src/main/java/com/smitnk/motioncanvas/timeline/TimelineComponents.kt
       - name: Set up JDK 17
         uses: actions/setup-java@v5
         with:
