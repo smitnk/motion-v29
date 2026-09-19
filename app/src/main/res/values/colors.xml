@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_bg">#FF0D0D0F</color>
+    <color name="pink_accent">#FFFF3F91</color>
+    <color name="panel_bg">#FF18181B</color>
+    <color name="panel_bg_2">#FF252529</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+</resources>
