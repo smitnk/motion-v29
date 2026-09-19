@@ -677,7 +677,6 @@ fun HomeScreen(
     Scaffold(
         containerColor = AppBackground,
         topBar = {
-            if (workspaceVisibility.topBar) {
             TopAppBar(
                 title = { Text("MotionCanvas", color = White, fontWeight = FontWeight.Bold) },
                 navigationIcon = {
