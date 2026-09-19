@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.smitnk.motioncanvas.ui.theme.*
 import com.smitnk.motioncanvas.brush.CustomBrushPreset
+import com.smitnk.motioncanvas.brush.AdvancedBrushEngine
 import com.smitnk.motioncanvas.brush.BrushPresetStore
 import com.smitnk.motioncanvas.drawing.FrameDrawingHistory
 import com.smitnk.motioncanvas.drawing.ZoomPanState
