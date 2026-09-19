@@ -28,7 +28,7 @@ import com.smitnk.motioncanvas.tools.PrecisionRulerEngine
 class AdvancedEngineWiring {
 
     fun guidePoint(points: List<Offset>, position: Float): Offset? =
-        MotionGuideEngine.sample(points, position)
+        MotionGuideEngine.sample(com.smitnk.motioncanvas.animation.MotionGuide(points), position)
 
     fun cameraScale(base: Float, zoom: Float): Float =
         Camera2D(zoom = base).zoomed(zoom).zoom
