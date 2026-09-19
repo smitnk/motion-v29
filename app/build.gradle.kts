@@ -52,8 +52,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
-    // Apache-2.0 AndroidX Media3: multi-track composition/export.
-    // 1.4.1 is compatible with the v29 compileSdk 34 toolchain.
+    // Media3 1.4.1 is compatible with compileSdk 34. Newer Media3 releases
+    // require a newer Android SDK, which fails during dependency metadata checks.
     implementation("androidx.media3:media3-transformer:1.4.1")
     implementation("androidx.media3:media3-common:1.4.1")
 
