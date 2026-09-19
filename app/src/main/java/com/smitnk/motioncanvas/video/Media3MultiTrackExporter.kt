@@ -60,14 +60,14 @@ object Media3MultiTrackExporter {
 
             val clipping = MediaItem.ClippingConfiguration.Builder()
                 .setStartPositionMs(clipStartUs / 1000L)
-                .apply { if (clipEndUs != null) setEndPositionMs(clipEndUs / 1000L) }
+                .setEndPositionMs(clipEndUs / 1000L)
                 .build()
             val media = MediaItem.Builder()
                 .setUri(Uri.fromFile(File(clip.uri)))
                 .setClippingConfiguration(clipping)
                 .build()
 
-            val sourceDurationUs = if (clipEndUs != null) (clipEndUs - clipStartUs).coerceAtLeast(1L) else 0L
+            val sourceDurationUs = (clipEndUs - clipStartUs).coerceAtLeast(1L)
             val fadeInUs = clip.fadeInFrames.coerceAtLeast(0).toLong() * 1_000_000L / fps.coerceIn(1, 60)
             val fadeOutUs = clip.fadeOutFrames.coerceAtLeast(0).toLong() * 1_000_000L / fps.coerceIn(1, 60)
             val gain = DefaultGainProvider.Builder(clip.volume.coerceIn(0f, 4f)).apply {

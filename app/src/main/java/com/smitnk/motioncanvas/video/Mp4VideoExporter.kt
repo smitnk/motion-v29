@@ -56,7 +56,11 @@ object Mp4VideoExporter {
             val out = codec.dequeueOutputBuffer(info, if (wait) 10_000 else 0)
             when {
                 out == MediaCodec.INFO_TRY_AGAIN_LATER -> if (!wait) return else continue
-                out == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED -> val t = muxer.addTrack(codec.outputFormat); currentTrack = t; onFormat(t)
+                out == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED -> {
+                    val t = muxer.addTrack(codec.outputFormat)
+                    currentTrack = t
+                    onFormat(t)
+                }
                 out >= 0 -> {
                     val buffer = codec.getOutputBuffer(out) ?: continue
                     if (info.size > 0) muxer.writeSampleData(currentTrack, buffer, info)
