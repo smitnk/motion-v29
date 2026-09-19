@@ -486,7 +486,7 @@ fun SelectionTransformBar(
             ) {
                 Text(
                     text = "$selectedCount selected",
-                    color = TextPrimary,
+                    color = White,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium
                 )
@@ -507,7 +507,7 @@ fun SelectionTransformBar(
                 Icon(
                     imageVector = Icons.Default.Flip,
                     contentDescription = "Flip Horizontal",
-                    tint = TextPrimary,
+                    tint = White,
                     modifier = Modifier.size(18.dp)
                 )
             }
@@ -520,7 +520,7 @@ fun SelectionTransformBar(
                 Icon(
                     imageVector = Icons.Default.SwapVert,
                     contentDescription = "Flip Vertical",
-                    tint = TextPrimary,
+                    tint = White,
                     modifier = Modifier.size(18.dp)
                 )
             }
@@ -533,7 +533,7 @@ fun SelectionTransformBar(
                 Icon(
                     imageVector = Icons.Default.ContentCopy,
                     contentDescription = "Duplicate Artwork",
-                    tint = TextPrimary,
+                    tint = White,
                     modifier = Modifier.size(18.dp)
                 )
             }
@@ -546,7 +546,7 @@ fun SelectionTransformBar(
                 Icon(
                     imageVector = Icons.Default.CopyAll,
                     contentDescription = "Copy Artwork",
-                    tint = TextPrimary,
+                    tint = White,
                     modifier = Modifier.size(18.dp)
                 )
             }
@@ -560,7 +560,7 @@ fun SelectionTransformBar(
                 Icon(
                     imageVector = Icons.Default.ContentPaste,
                     contentDescription = "Paste Artwork",
-                    tint = if (canPaste) TextPrimary else TextSecondary.copy(alpha = 0.35f),
+                    tint = if (canPaste) White else TextSecondary.copy(alpha = 0.35f),
                     modifier = Modifier.size(18.dp)
                 )
             }
