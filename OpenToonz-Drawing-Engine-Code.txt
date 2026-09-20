@@ -1,0 +1,241 @@
+PROJECT CANVAS v29 — EXACT OPENTOONZ DRAWING ENGINE INTEGRATION SOURCE MANIFEST
+================================================================================
+
+PURPOSE
+-------
+This file is NOT an imitation or rewritten drawing engine.
+Use the original OpenToonz source from the official repository:
+https://github.com/opentoonz/opentoonz
+
+Target Project Canvas repository:
+https://github.com/smitnk/motion-v29
+Target branch:
+feature/opentoonz-drawing-engine
+
+MANDATORY RULE
+--------------
+Do NOT replace OpenToonz drawing algorithms with newly written "inspired" Kotlin,
+Java, Compose, Canvas, Skia, or pseudo-OpenToonz implementations.
+
+Use the exact upstream OpenToonz source files from the official repository,
+preserving copyright headers and required license notices.
+
+OpenToonz main source license:
+BSD 3-Clause.
+Files under thirdparty/ and stuff/library/mypaint brushes/ have separate
+licenses and MUST be checked individually.
+
+OFFICIAL LICENSE:
+https://github.com/opentoonz/opentoonz/blob/master/LICENSE.txt
+
+OFFICIAL SOURCE:
+https://github.com/opentoonz/opentoonz
+
+DRAWING ENGINE SOURCE SET
+-------------------------
+
+1. Stroke representation / geometry
+   Source:
+   toonz/sources/include/tstroke.h
+   https://github.com/opentoonz/opentoonz/blob/master/toonz/sources/include/tstroke.h
+
+2. Stroke generation / input-point interpolation
+   Source:
+   toonz/sources/include/toonz/strokegenerator.h
+   toonz/sources/toonzlib/strokegenerator.cpp
+   https://github.com/opentoonz/opentoonz/blob/master/toonz/sources/include/toonz/strokegenerator.h
+   https://github.com/opentoonz/opentoonz/blob/master/toonz/sources/toonzlib/strokegenerator.cpp
+
+3. Vector image model
+   Source:
+   toonz/sources/include/tvectorimage.h
+   toonz/sources/common/tvectorimage/tvectorimage.cpp
+   https://github.com/opentoonz/opentoonz/blob/master/toonz/sources/include/tvectorimage.h
+   https://github.com/opentoonz/opentoonz/blob/master/toonz/sources/common/tvectorimage/tvectorimage.cpp
+
+4. Raster image model
+   Source:
+   toonz/sources/include/ttoonzimage.h
+
+5. Raster brush engine
+   Source:
+   toonz/sources/include/toonz/rasterbrush.h
+   toonz/sources/toonzlib/rasterbrush.cpp
+   toonz/sources/toonzlib/rasterstrokegenerator.cpp
+   https://github.com/opentoonz/opentoonz/blob/master/toonz/sources/include/toonz/rasterbrush.h
+   https://github.com/opentoonz/opentoonz/blob/master/toonz/sources/toonzlib/rasterbrush.cpp
+   https://github.com/opentoonz/opentoonz/blob/master/toonz/sources/toonzlib/rasterstrokegenerator.cpp
+
+6. Toonz raster brush tool
+   Source:
+   toonz/sources/tnztools/toonzrasterbrushtool.h
+   toonz/sources/tnztools/toonzrasterbrushtool.cpp
+   https://github.com/opentoonz/opentoonz/blob/master/toonz/sources/tnztools/toonzrasterbrushtool.h
+   https://github.com/opentoonz/opentoonz/blob/master/toonz/sources/tnztools/toonzrasterbrushtool.cpp
+
+7. Vector brush tool
+   Source:
+   toonz/sources/tnztools/toonzvectorbrushtool.h
+   toonz/sources/tnztools/toonzvectorbrushtool.cpp
+   https://github.com/opentoonz/opentoonz/blob/master/toonz/sources/tnztools/toonzvectorbrushtool.h
+   https://github.com/opentoonz/opentoonz/blob/master/toonz/sources/tnztools/toonzvectorbrushtool.cpp
+
+8. Full-color / MyPaint brush tool
+   Source:
+   toonz/sources/tnztools/fullcolorbrushtool.h
+   toonz/sources/tnztools/fullcolorbrushtool.cpp
+
+   IMPORTANT:
+   MyPaint code/assets have separate licensing requirements.
+   Do not copy the MyPaint brush library unless its individual license permits it.
+
+9. Vector brush style
+   Source:
+   toonz/sources/include/tvectorbrushstyle.h
+   toonz/sources/common/tvrender/tvectorbrushstyle.cpp
+   https://github.com/opentoonz/opentoonz/blob/master/toonz/sources/include/tvectorbrushstyle.h
+   https://github.com/opentoonz/opentoonz/blob/master/toonz/sources/common/tvrender/tvectorbrushstyle.cpp
+
+10. Vector rendering
+    Source candidates:
+    toonz/sources/include/tvectorgl.h
+    toonz/sources/include/tgl.h
+    related implementations under:
+    toonz/sources/common/tvrender/
+
+11. Eraser / raster editing
+    Source candidates:
+    toonz/sources/tnztools/rastererasertool.cpp
+    related raster editing sources under:
+    toonz/sources/tnztools/
+
+12. Fill
+    Source:
+    toonz/sources/include/toonz/fill.h
+    related implementation under:
+    toonz/sources/tnztools/filltool.cpp
+
+DO NOT IMPORT THE DESKTOP APPLICATION
+-------------------------------------
+Do NOT copy the OpenToonz desktop UI into Project Canvas.
+
+Do NOT use:
+- toonz/sources/toonz/main.cpp as the Android application entry point
+- OpenToonz desktop MainWindow
+- desktop menus/dialogs
+- Windows WinTab implementation
+- Windows registry code
+- QuickTime desktop server
+- Canon DSLR desktop SDK
+- desktop-only file browser UI
+- desktop-only plugin UI
+
+Project Canvas Android UI remains the existing v29 UI.
+
+ANDROID CONNECTION
+------------------
+The exact OpenToonz source is the drawing implementation.
+Only the Android integration boundary may be new.
+
+Required data flow:
+
+Android touch/stylus
+        |
+        v
+Project Canvas input adapter
+        |
+        v
+OpenToonz stroke input / StrokeGenerator
+        |
+        v
+OpenToonz TStroke / raster/vector drawing
+        |
+        v
+OpenToonz rendering/data model
+        |
+        v
+Project Canvas rendering surface
+
+The adapter MUST NOT reimplement the OpenToonz stroke algorithm.
+
+FEATURE CONNECTIONS
+-------------------
+Brush:
+Project Canvas brush controls -> OpenToonz brush/tool settings
+
+Pressure:
+Android MotionEvent pressure -> OpenToonz thick-point/brush pressure input
+
+Smoothing:
+Input points -> OpenToonz StrokeGenerator
+
+Vector drawing:
+Input -> TStroke -> TVectorImage
+
+Raster drawing:
+Input -> raster brush/stroke generator -> TToonzImage/raster data
+
+Eraser:
+Project Canvas eraser command -> OpenToonz eraser/raster editing path
+
+Selection:
+Project Canvas selection UI -> OpenToonz vector/image object model where compatible
+
+Undo/redo:
+Project Canvas history must record operations against the OpenToonz document/drawing
+objects. Do not create a second independent drawing representation.
+
+Layers:
+Project Canvas layer model must map to the OpenToonz-compatible image/document
+representation.
+
+Timeline:
+Timeline selects the active drawing/frame. It must not duplicate the actual stroke
+algorithm.
+
+REQUIRED BUILD STRATEGY
+-----------------------
+1. Vendor the required exact OpenToonz source into the Project Canvas source tree.
+2. Preserve each upstream copyright/license notice.
+3. Build native C++ through Android NDK/CMake.
+4. Remove desktop-only source from the Android target.
+5. Do not rewrite OpenToonz drawing algorithms in Kotlin.
+6. Add only the minimum JNI/NDK adapter required to pass Android input and receive
+   rendered/drawing output.
+7. First test: draw one stroke.
+8. Second test: pressure-sensitive stroke.
+9. Third test: erase.
+10. Fourth test: vector stroke.
+11. Fifth test: save/load drawing.
+12. Only after these pass, connect timeline/layers/export.
+
+GOOGLE AI STUDIO IMPLEMENTATION RULE
+------------------------------------
+If an exact OpenToonz source file is required and it is not included in the supplied
+source bundle, fetch that exact file from the official OpenToonz repository.
+
+Do NOT invent a replacement implementation.
+
+Do NOT say "OpenToonz-inspired".
+
+Do NOT create a fake OpenToonz engine.
+
+Do NOT replace TStroke, StrokeGenerator, TVectorImage, rasterBrush, or the OpenToonz
+brush tools with Android Canvas drawing code.
+
+The resulting application must use the actual OpenToonz source implementation for
+the drawing engine, subject to the Android build adaptations described above.
+
+VERSION / SOURCE VERIFICATION
+-----------------------------
+Use the OpenToonz commit/tag selected for the project and record the exact commit
+SHA in the build manifest. Do not silently mix files from different OpenToonz versions.
+
+CURRENT OFFICIAL REPOSITORY:
+https://github.com/opentoonz/opentoonz
+
+CURRENT PROJECT:
+https://github.com/smitnk/motion-v29
+
+LICENSE:
+https://github.com/opentoonz/opentoonz/blob/master/LICENSE.txt
